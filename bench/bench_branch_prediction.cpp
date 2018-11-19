@@ -70,6 +70,9 @@ BENCHMARK_F(BranchSwitchFixture, BenchSwitch)(benchmark::State& state) {
       for (int i = 0; i < 10000; i++)
         switch (states[i].state)
         {
+          case RECEIVED:
+            result += states[i].state;
+            break;
           case CONNECTED:
             result += states[i].state;
             break;
@@ -88,11 +91,11 @@ BENCHMARK_F(BranchSwitchFixture, BenchSwitch)(benchmark::State& state) {
           case DISCONNECTING:
             result += states[i].state;
             break;
-          case RECEIVED:
+        }
+  }          case RECEIVED:
             result += states[i].state;
             break;
-        }
-  }
+
 
   bh.consume(result);
 }
