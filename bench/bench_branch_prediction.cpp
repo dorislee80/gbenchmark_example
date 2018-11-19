@@ -99,10 +99,7 @@ BENCHMARK_F(BranchSwitchFixture, BenchSwitch)(benchmark::State& state) {
             result += states[i].state;
             break;
         }
-  }          case RECEIVED:
-            result += states[i].state;
-            break;
-
+  }          
 
   bh.consume(result);
 }
