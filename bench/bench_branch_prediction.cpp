@@ -26,6 +26,10 @@ public:
     }
 
 
+    // Initialize elements in the array of 'states'. SetUp
+    // makes sure more than 99.99% elements have state 'RECEIVED'
+    // so that we can measure how CPU's branch prediction affect
+    // performance.
     void SetUp(const benchmark::State& st) {
       int threshold = RAND_MAX / 10000;
 
@@ -46,6 +50,9 @@ public:
 };
 
 
+// Blackhole copies the value to an integer allocated
+// in the heap. Its purpose to prevent the compiler
+// from optimizing the benchmark loop.
 class BlackHole {
     int* data;
 
@@ -106,6 +113,8 @@ BENCHMARK_F(BranchSwitchFixture, BenchIfSwitch)(benchmark::State& state) {
 
   for (auto _ : state) {
     for (int i = 0; i < 10000; i++)
+      // Simple does "if (states[i].state == RECEIVED)" doesn't trigger 
+      // the branch prediction optimization  
       if (__builtin_expect(!!(states[i].state == RECEIVED), true))
         result += states[i].state;
       else {
