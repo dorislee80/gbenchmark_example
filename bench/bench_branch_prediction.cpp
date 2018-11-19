@@ -112,7 +112,7 @@ BENCHMARK_F(BranchSwitchFixture, BenchIfSwitch)(benchmark::State& state) {
     for (int i = 0; i < 10000; i++)
       // Simple does "if (states[i].state == RECEIVED)" doesn't trigger 
       // the branch prediction optimization  
-      if (__builtin_expect(!!(states[i].state == RECEIVED), true))
+      if (__builtin_expect(states[i].state == RECEIVED, true))
         result += states[i].state;
       else {
         switch (states[i].state) {
