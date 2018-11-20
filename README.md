@@ -66,3 +66,6 @@ BENCHMARK(BM_IntToString)->Arg(87653433);
 BENCHMARK_MAIN();
 ```  
   
+# An advanced example
+
+Bench_branch_prediction.cpp contains the code benchmarking how "__builtin_expect()" optimize performance. It also shows how to use fixture.
